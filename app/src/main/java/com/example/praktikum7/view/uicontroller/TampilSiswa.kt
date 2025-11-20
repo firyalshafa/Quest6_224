@@ -1,32 +1,16 @@
 package com.example.praktikum7.view.uicontroller
 
-
-
-import android.R
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import com.example.praktikum7.R
 import com.example.praktikum7.model.Siswa
-import java.lang.reflect.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,45 +19,54 @@ fun TampilSiswa(
     onBackButtonClicked: () -> Unit
 ) {
     val items = listOf(
-        Pair(first = stringResource(id = "Nama Lengkap"), second = statusUISiswa.nama),
-        Pair(first = stringResource(id = "Jenis Kelamin"), second = statusUISiswa.gender),
-        Pair(first = stringResource(id = "Alamat"), second = statusUISiswa.alamat)
+        stringResource(R.string.nama) to statusUISiswa.nama,
+        stringResource(R.string.gender) to statusUISiswa.gender,
+        stringResource(R.string.alamat) to statusUISiswa.alamat
+
     )
 
-    Scaffold(modifier = Modifier,
+    Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource("Data Siswa"), color = R.color.white) },
-                colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = colorResource(id = R.color.purple_500)),
+                title = {
+                    Text(
+                        text = stringResource(R.string.detail),
+                        color = colorResource(R.color.white)
+                    )
+                },
+                colors = TopAppBarDefaults.mediumTopAppBarColors(
+                    containerColor = colorResource(id = R.color.purple_500)
+                )
             )
-
-}
-) { isiRuang ->
-    Column(
-        modifier = Modifier.padding(paddingValues = isiRuang),
-        verticalArrangement = Arrangement.SpaceBetween
-    ){
+        }
+    ) { paddingValues ->
         Column(
-            modifier = Modifier.padding(all = dimensionResource(id = R.dimen.padding_medium)),
-            verticalArrangement = Arrangement.spacedBy(
-                dimensionResource(id = R.dimen.padding_small)
-            )
+            modifier = Modifier.padding(paddingValues),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            items.forEach { item ->
-                Column {
-                    Text(text = item.first.uppercase(), fontSize = 16.sp)
-                    Text(text = item.second, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                    Divider(thickness = dimensionResource(id = R.dimen.dimen_1dp))
+            Column(
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
+                verticalArrangement = Arrangement.spacedBy(
+                    dimensionResource(id = R.dimen.padding_small)
+                )
+            ) {
+                items.forEach { item ->
+                    Column {
+                        Text(text = item.first.uppercase(), fontSize = 16.sp)
+                        Text(text = item.second, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        Divider(thickness = dimensionResource(id = R.dimen.dimen_1dp))
+                    }
                 }
             }
+
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen_8dp)))
+
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = onBackButtonClicked
+            ) {
+                Text(text = stringResource(R.string.back))
+            }
         }
-        Spacer(modifier = Modifier.height(height = dimensionResource(id = R.dimen.dimen_8dp)))
-        Button (
-            modifier = Modifier.fillMaxWidth(),
-            onClick = onBackButtonClicked
-        ) {
-            Text(text = stringResource("Back"))
-        }
     }
-    }
-    }
+}
