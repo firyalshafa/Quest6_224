@@ -9,41 +9,54 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.praktikum7.model.dataJK.JenisK
 import com.example.praktikum7.viewmodel.SiswaViewModel
+//import com.example.praktikum7.view.FormSiswa
+//import com.example.praktikum7.view.TampilSiswa
+import com.example.praktikum7.model.Siswa // <--- Perlu diimpor untuk mendefinisikan tipe Siswa
 
 enum class Navigasi {
     Formulir,
     Detail
 }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SiswaApp(
-    modifier : Modifier,
+    modifier: Modifier = Modifier,
     viewModel: SiswaViewModel = viewModel(),
 ) {
-    Scaffold { isiRuang->
-        val uiState = viewModel.statusUI.collectAsState()
-        navHost(
+    val navController = rememberNavController()
+    val uiState = viewModel.statusUI.collectAsState()
+
+    Scaffold { isiRuang ->
+
+        NavHost(
             navController = navController,
             startDestination = Navigasi.Formulir.name,
+            modifier = Modifier.padding(isiRuang)
+        ) {
 
-            modifier = Modifier.padding(paddingValues = isiRuang)){
-            composable(route = Navigasi.Formulir.name){
+            composable(Navigasi.Formulir.name) {
                 val konteks = LocalContext.current
                 FormSiswa(
-                    pilihanJK = JenisK.map {id -> konteks.resources.getString(id)},
-                    onSubmitButtonClicked = {
-                        viewModel.setSiswa(it)
+                    pilihanJK = JenisK.map { id -> konteks.resources.getString(id) },
+                    onSubmitButtonClicked = { dataSiswa: Siswa -> // PERBAIKAN: Deklarasi tipe Siswa
+                        viewModel.setSiswa(dataSiswa)
                         navController.navigate(route = Navigasi.Detail.name)
                     }
                 )
             }
 
-            composable(route = Navigasi.Detail.name){
+            composable(route = Navigasi.Detail.name) {
                 TampilSiswa(
-                    statusUiSiswa = uiState.value,
-                    onBackButtonClicked = {cancelAndBackToFormulir(navController)}
+                    statusUISiswa = uiState.value, // Sudah diperbaiki dari statusUiSiswa
+                    onBackButtonClicked = {
+                        cancelAndBackToFormulir(navController)
+                    }
                 )
             }
         }
@@ -52,10 +65,9 @@ fun SiswaApp(
 
 private fun cancelAndBackToFormulir(
     navController: NavHostController
-)
-{
-    navController.popBackStack(route = Navigasi.Formulir.name, inclusive = false)
-
-
-
+) {
+    navController.popBackStack(
+        route = Navigasi.Formulir.name,
+        inclusive = false
+    )
 }
