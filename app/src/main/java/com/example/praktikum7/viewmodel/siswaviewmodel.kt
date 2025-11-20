@@ -14,9 +14,14 @@ class SiswaViewModel : ViewModel() {
 
     val statusUI: StateFlow<Siswa> = _statusUI.asStateFlow()
 
-    fun setSiswa(ls: MutableList<String>){
+    // Perbaikan di SiswaViewModel.kt
+    fun setSiswa(siswaBaru: Siswa) { // Ubah tipe dari MutableList<String> menjadi Siswa
         _statusUI.update { statusSaatIni ->
-            statusSaatIni.copy(nama = ls[0], gender = ls[1], alamat= ls[2])
-            }
+            // Langsung salin properti dari objek Siswa yang diterima
+            statusSaatIni.copy(
+                nama = siswaBaru.nama,
+                gender = siswaBaru.gender,
+                alamat = siswaBaru.alamat
+            )
         }
-}
+    }}
