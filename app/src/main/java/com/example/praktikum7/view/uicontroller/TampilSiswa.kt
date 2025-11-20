@@ -5,6 +5,8 @@ package com.example.praktikum7.view.uicontroller
 import android.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -63,4 +65,5 @@ fun TampilSiswa(
                 }
             }
         }
+        Spacer(modifier = Modifier.height(height = dimensionResource(id = R.dimen.dimen_8dp)))
     }
