@@ -2,5 +2,7 @@
 <resources>
     <dimen name="padding_small">10dp</dimen>
     <dimen name="padding_medium">16dp</dimen>
-    <dimen name="thickness_divider">1dp</dimen>
+
+    <dimen name="dimen_1dp">1dp</dimen>
+    <dimen name="dimen_8dp">8dp</dimen>
 </resources>
