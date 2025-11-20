@@ -3,6 +3,9 @@ package com.example.praktikum7.view.uicontroller
 
 
 import android.R
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -12,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import com.example.praktikum7.model.Siswa
@@ -37,3 +41,8 @@ fun TampilSiswa(
             )
 
 }
+) { isiRuang ->
+    Column(
+        modifier = Modifier.padding(paddingValues = isiRuang),
+        verticalArrangement = Arrangement.SpaceBetween
+    )
