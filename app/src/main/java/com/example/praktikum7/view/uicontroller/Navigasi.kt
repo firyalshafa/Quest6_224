@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.praktikum7.model.dataJK.JenisK
 import com.example.praktikum7.viewmodel.SiswaViewModel
 
@@ -48,6 +49,11 @@ fun SiswaApp(
         }
     }
 }
+
+private fun cancelAndBackToFormulir(
+    navController: NavHostController
+)
+{
 
 
 
